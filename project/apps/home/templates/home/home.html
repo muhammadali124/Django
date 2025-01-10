@@ -21,11 +21,13 @@
             margin-bottom: 20px;
         }
         .buttons {
-            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;  /* Allow buttons to wrap to the next line */
+            justify-content: center;  /* Center buttons horizontally */
+            gap: 10px;  /* Space between buttons */
         }
         .buttons button {
             padding: 10px 20px;
-            margin: 10px;
             border: none;
             border-radius: 5px;
             background-color: #007BFF;
@@ -33,18 +35,27 @@
             font-size: 1rem;
             cursor: pointer;
             transition: background-color 0.3s;
+            min-width: 150px; /* Minimum width for each button */
         }
         .buttons button:hover {
             background-color: #0056b3;
+        }
+        .no-models {
+            text-align: center;
+            color: #777;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Welcome Back!</h1>
-        <p>Where would you like to go?</p>
+        <p>Here are installed apps:</p>
         <div class="buttons">
-            <button onclick="location.href='/flexible_db/'">Flexible DB</button>
+            {% for app in apps %}
+                <button onclick="location.href='/{{ app.name }}'">{{ app.name }}!</button>
+            {% empty %}
+                <p class="no-models">No apps available.</p>
+            {% endfor %}
         </div>
     </div>
 </body>
